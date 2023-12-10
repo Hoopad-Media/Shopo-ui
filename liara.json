@@ -1,0 +1,8 @@
+{
+    "platform": "node",
+    "app": "shopo",
+    "port": 3000,
+    "node": {
+      "version": "14"
+    }
+  }
