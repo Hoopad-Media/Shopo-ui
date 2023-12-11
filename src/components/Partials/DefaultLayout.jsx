@@ -38,6 +38,7 @@ export default function DefaultLayout({ children }) {
       .get(`https://panel.oxinmart.com/api/website-setup`)
       .then((res) => {
         // handle success
+        console.log("https://panel.oxinmart.com/api/website-setup", "works !!");
         dispatch(setupAction(res.data));
         localStorage.setItem(
           "settings",
