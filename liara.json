@@ -3,6 +3,6 @@
   "app": "shopo",
   "port": 3000,
   "node": {
-    "version": "20"
+    "version": "14"
   }
 }
