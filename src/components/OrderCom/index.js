@@ -1,17 +1,16 @@
 import axios from "axios";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import isAuth from "../../../Middleware/isAuth";
-import apiRequest from "../../../utils/apiRequest";
+import apiRequest, { PublicBaseUrl } from "../../../utils/apiRequest";
 import auth from "../../../utils/auth";
 import settings from "../../../utils/settings";
 import BreadcrumbCom from "../BreadcrumbCom";
 import InputCom from "../Helpers/InputCom";
 import LoaderStyleOne from "../Helpers/Loaders/LoaderStyleOne";
-import StarRating from "../Helpers/StarRating";
 import ServeLangItem from "../Helpers/ServeLangItem";
+import StarRating from "../Helpers/StarRating";
 function OrderCom() {
   const router = useRouter();
   const { id } = router.query;
@@ -41,9 +40,9 @@ function OrderCom() {
       if (!resData) {
         axios
           .get(
-            `${
-              process.env.NEXT_PUBLIC_BASE_URL
-            }api/user/order-show/${id}?token=${auth().access_token}`
+            `${PublicBaseUrl}api/user/order-show/${id}?token=${
+              auth().access_token
+            }`
           )
           .then((res) => {
             setResData(res.data && res.data.order);

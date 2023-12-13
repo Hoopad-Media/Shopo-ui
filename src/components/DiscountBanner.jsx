@@ -1,3 +1,4 @@
+import { PublicBaseUrl } from "../../utils/apiRequest";
 import SubscribeInputWidget from "./Helpers/SubscribeInputWidget";
 export default function DiscountBanner({ className, datas }) {
   return (
@@ -6,9 +7,7 @@ export default function DiscountBanner({ className, datas }) {
         className || ""
       }`}
       style={{
-        backgroundImage: `url(${
-          process.env.NEXT_PUBLIC_BASE_URL + datas.image
-        })`,
+        backgroundImage: `url(${PublicBaseUrl + datas.image})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "top",

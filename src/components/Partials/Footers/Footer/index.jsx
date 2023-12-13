@@ -2,9 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Facebook from "../../../Helpers/icons/Facebook";
-import Instagram from "../../../Helpers/icons/Instagram";
-import Youtube from "../../../Helpers/icons/Youtube";
+import { PublicBaseUrl } from "../../../../../utils/apiRequest";
 import FontAwesomeCom from "../../../Helpers/icons/FontAwesomeCom";
 export default function Footer({ settings }) {
   const { websiteSetup } = useSelector((state) => state.websiteSetup);
@@ -73,7 +71,7 @@ export default function Footer({ settings }) {
                     width="153"
                     height="44"
                     objectFit="scale-down"
-                    src={`${process.env.NEXT_PUBLIC_BASE_URL + settings.logo}`}
+                    src={`${PublicBaseUrl + settings.logo}`}
                     alt="logo"
                   />
                 )}
@@ -234,10 +232,7 @@ export default function Footer({ settings }) {
                   <Image
                     width="318"
                     height="28"
-                    src={`${
-                      process.env.NEXT_PUBLIC_BASE_URL +
-                      footerContent.payment_image
-                    }`}
+                    src={`${PublicBaseUrl + footerContent.payment_image}`}
                     alt="payment-getways"
                   />
                 </a>

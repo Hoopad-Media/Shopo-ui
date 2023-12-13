@@ -1,10 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
-import CountDown from "../Helpers/CountDown";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
 import ShopNowBtn from "../Helpers/Buttons/ShopNowBtn";
-import GooglePlay from "../Helpers/icons/GooglePlay";
-import AppleStore from "../Helpers/icons/AppleStore";
+import CountDown from "../Helpers/CountDown";
 import ServeLangItem from "../Helpers/ServeLangItem";
+import AppleStore from "../Helpers/icons/AppleStore";
+import GooglePlay from "../Helpers/icons/GooglePlay";
 
 export default function CampaignCountDown({
   className,
@@ -23,8 +23,7 @@ export default function CampaignCountDown({
               className="campaign-countdown lg:w-1/2 group h-[300px] sm:h-[400px] lg:h-full w-full mb-5 lg:mb-0 "
               style={{
                 background: `url(${
-                  process.env.NEXT_PUBLIC_BASE_URL +
-                    flashSaleData.homepage_image ||
+                  PublicBaseUrl + flashSaleData.homepage_image ||
                   "/assets/images/campaign-cover-countdown.jpg"
                 }) no-repeat`,
                 backgroundSize: "cover",
@@ -93,7 +92,7 @@ export default function CampaignCountDown({
               style={{
                 backgroundImage: `url(${
                   downloadData.image
-                    ? process.env.NEXT_PUBLIC_BASE_URL + downloadData.image
+                    ? PublicBaseUrl + downloadData.image
                     : "/assets/images/download-app-cover.png"
                 })`,
                 backgroundRepeat: "no-repeat",

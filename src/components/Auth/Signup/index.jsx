@@ -1,10 +1,11 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Layout from "../../Partials/Layout";
-import Image from "next/image";
 import { useSelector } from "react-redux";
-import VerifyWidget from "./VerifyWidget";
+import { PublicBaseUrl } from "../../../../utils/apiRequest";
+import Layout from "../../Partials/Layout";
 import SignupWidget from "./SignupWidget";
+import VerifyWidget from "./VerifyWidget";
 export default function Signup() {
   const { websiteSetup } = useSelector((state) => state.websiteSetup);
   const [verify, setVerify] = useState(false);
@@ -50,7 +51,7 @@ export default function Signup() {
                   <Image
                     width={608}
                     height={480}
-                    src={`${process.env.NEXT_PUBLIC_BASE_URL + imgThumb}`}
+                    src={`${PublicBaseUrl + imgThumb}`}
                     alt="login"
                   />
                 )}

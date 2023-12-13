@@ -2,6 +2,7 @@ import React from "react";
 import isMultivendor from "../../Middleware/isMultivendor";
 import AllProductPage from "../../src/components/AllProductPage/index";
 import PageHead from "../../src/components/Helpers/PageHead";
+import { PublicBaseUrl } from "../../utils/apiRequest";
 
 function sellersProductsPage(data) {
   const sellerInfo = {
@@ -23,7 +24,7 @@ function sellersProductsPage(data) {
 }
 export const getServerSideProps = async (context) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}api/sellers/${context.query.seller}`
+    `${PublicBaseUrl}api/sellers/${context.query.seller}`
   );
   const data = await res.json();
   return {

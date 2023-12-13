@@ -1,5 +1,5 @@
+import { PublicBaseUrl } from "../../../utils/apiRequest";
 import ProductCardStyleOne from "../Helpers/Cards/ProductCardStyleOne";
-import CountDown from "../Helpers/CountDown";
 import DataIteration from "../Helpers/DataIteration";
 import Layout from "../Partials/Layout";
 import CountDownWidget from "./CountDownWidget";
@@ -14,7 +14,7 @@ export default function FlashSale({ fetchData }) {
         category_id: item.category_id,
         title: item.name,
         slug: item.slug,
-        image: process.env.NEXT_PUBLIC_BASE_URL + item.thumb_image,
+        image: PublicBaseUrl + item.thumb_image,
         price: item.price,
         offer_price: item.offer_price,
         campaingn_product: null,
@@ -30,8 +30,7 @@ export default function FlashSale({ fetchData }) {
             <div
               style={{
                 backgroundImage: `url(${
-                  process.env.NEXT_PUBLIC_BASE_URL +
-                  fetchData.flashSale.flashsale_page_image
+                  PublicBaseUrl + fetchData.flashSale.flashsale_page_image
                 })`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",

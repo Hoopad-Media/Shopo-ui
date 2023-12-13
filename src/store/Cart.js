@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PublicBaseUrl } from "../../utils/apiRequest";
 import auth from "../../utils/auth";
 //constant
 const CART = "CART";
@@ -11,9 +12,7 @@ const initialState = {
 export const fetchCart = createAsyncThunk("CART/fetchCart", async () => {
   if (auth()) {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}api/cart?token=${
-        auth().access_token
-      }`,
+      `${PublicBaseUrl}api/cart?token=${auth().access_token}`,
       {
         method: "GET",
         headers: {

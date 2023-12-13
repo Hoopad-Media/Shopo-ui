@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import Blog from "../../src/components/Blogs/Blog/index.jsx";
 import PageHead from "../../src/components/Helpers/PageHead";
+import { PublicBaseUrl } from "../../utils/apiRequest.js";
 
 const Blogpage = ({ data }) => {
   const router = useRouter();
@@ -19,9 +20,7 @@ const Blogpage = ({ data }) => {
 };
 export const getServerSideProps = async (context) => {
   if (context && context.query.slug) {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}api/blog/${context.query.slug}`
-    );
+    const res = await fetch(`${PublicBaseUrl}api/blog/${context.query.slug}`);
     const data = await res.json();
     return {
       props: {

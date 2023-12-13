@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import apiRequest from "../../../../../utils/apiRequest";
+import apiRequest, { PublicBaseUrl } from "../../../../../utils/apiRequest";
 import auth from "../../../../../utils/auth";
 import settings from "../../../../../utils/settings";
 import { fetchWishlist } from "../../../../store/wishlistData";
@@ -98,10 +98,7 @@ export default function WishlistTab({ className }) {
                         <div className="w-[80px] h-[80px] overflow-hidden flex justify-center items-center border border-[#EDEDED] relative">
                           <Image
                             layout="fill"
-                            src={`${
-                              process.env.NEXT_PUBLIC_BASE_URL +
-                              item.product.thumb_image
-                            }`}
+                            src={`${PublicBaseUrl + item.product.thumb_image}`}
                             alt="product"
                             className="w-full h-full object-contain"
                           />

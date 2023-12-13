@@ -1,8 +1,9 @@
 // import Empty from "./Empty";
-import Link from "next/link";
-import {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
 import ServeLangItem from "../Helpers/ServeLangItem";
 export default function EmptyWishlistError() {
   const { websiteSetup } = useSelector((state) => state.websiteSetup);
@@ -20,14 +21,14 @@ export default function EmptyWishlistError() {
         <div>
           <div className="sm:mb-10 mb-0 transform sm:scale-100 scale-50">
             {emptyWis && (
-                <div className="w-[429px] h-[412px] relative">
-                  <Image
-                      layout="fill"
-                      objectFit="scale-down"
-                      src={process.env.NEXT_PUBLIC_BASE_URL + emptyWis}
-                      alt="404"
-                  />
-                </div>
+              <div className="w-[429px] h-[412px] relative">
+                <Image
+                  layout="fill"
+                  objectFit="scale-down"
+                  src={PublicBaseUrl + emptyWis}
+                  alt="404"
+                />
+              </div>
             )}
           </div>
           <div data-aos="fade-up" className="wishlist-content w-full">

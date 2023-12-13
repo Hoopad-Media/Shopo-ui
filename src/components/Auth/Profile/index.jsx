@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import isAuth from "../../../../Middleware/isAuth";
+import apiRequest, { PublicBaseUrl } from "../../../../utils/apiRequest";
+import auth from "../../../../utils/auth";
+import { fetchWishlist } from "../../../store/wishlistData";
 import BreadcrumbCom from "../../BreadcrumbCom";
+import ServeLangItem from "../../Helpers/ServeLangItem";
+import Multivendor from "../../Shared/Multivendor";
 import IcoAdress from "./icons/IcoAdress";
 import IcoCart from "./icons/IcoCart";
 import IcoDashboard from "./icons/IcoDashboard";
@@ -14,16 +21,9 @@ import AddressesTab from "./tabs/AddressesTab";
 import Dashboard from "./tabs/Dashboard";
 import OrderTab from "./tabs/OrderTab";
 import PasswordTab from "./tabs/PasswordTab";
-import { useDispatch } from "react-redux";
-import isAuth from "../../../../Middleware/isAuth";
-import apiRequest from "../../../../utils/apiRequest";
-import auth from "../../../../utils/auth";
-import { fetchWishlist } from "../../../store/wishlistData";
-import Multivendor from "../../Shared/Multivendor";
 import ProfileTab from "./tabs/ProfileTab";
 import ReviewTab from "./tabs/ReviewTab";
 import WishlistTab from "./tabs/WishlistTab";
-import ServeLangItem from "../../Helpers/ServeLangItem";
 
 function Profile() {
   const router = useRouter();
@@ -120,7 +120,7 @@ function Profile() {
   };
   useEffect(() => {
     if (switchDashboard) {
-      const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+      const baseURL = PublicBaseUrl;
       const dashboardUrl = baseURL + "seller/dashboard";
       router.push(dashboardUrl);
     }

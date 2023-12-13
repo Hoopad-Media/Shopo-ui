@@ -1,15 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
+import settings from "../../../utils/settings";
 import BlogCard from "../Helpers/Cards/BlogCard";
 import DataIteration from "../Helpers/DataIteration";
+import PageTitle from "../Helpers/PageTitle";
+import ServeLangItem from "../Helpers/ServeLangItem";
+import SimpleSlider from "../Helpers/SliderCom";
 import FontAwesomeCom from "../Helpers/icons/FontAwesomeCom";
 import Star from "../Helpers/icons/Star";
-import PageTitle from "../Helpers/PageTitle";
-import SimpleSlider from "../Helpers/SliderCom";
 import Layout from "../Partials/Layout";
-import ServeLangItem from "../Helpers/ServeLangItem";
-import settings from "../../../utils/settings";
 export default function About({ aboutData }) {
   const settingTestimonial = {
     slidesToShow:
@@ -66,7 +67,7 @@ export default function About({ aboutData }) {
       comments_length: item.blog.active_comments.length,
       title: item.blog.title,
       article: item.blog.description,
-      picture: process.env.NEXT_PUBLIC_BASE_URL + item.blog.image,
+      picture: PublicBaseUrl + item.blog.image,
       slug: item.blog.slug,
     };
   });
@@ -89,10 +90,7 @@ export default function About({ aboutData }) {
               <div className="md:w-[570px] w-full md:h-[560px] h-auto rounded overflow-hidden my-5 lg:my-0 relative">
                 <Image
                   layout="fill"
-                  src={`${
-                    process.env.NEXT_PUBLIC_BASE_URL +
-                    aboutData.aboutUs.banner_image
-                  }`}
+                  src={`${PublicBaseUrl + aboutData.aboutUs.banner_image}`}
                   alt="about"
                   className="w-full h-full"
                 />
@@ -169,9 +167,7 @@ export default function About({ aboutData }) {
                         <div className="w-[50px] h-[50px] rounded-full overflow-hidden relative">
                           <Image
                             layout="fill"
-                            src={`${
-                              process.env.NEXT_PUBLIC_BASE_URL + item.image
-                            }`}
+                            src={`${PublicBaseUrl + item.image}`}
                             alt="user"
                           />
                         </div>
@@ -246,7 +242,10 @@ export default function About({ aboutData }) {
                   <div className="flex space-x-5 rtl:space-x-reverse items-center">
                     <div>
                       <div>
-                        <FontAwesomeCom className="w-8 h-8 text-qblack" icon={item.icon} />
+                        <FontAwesomeCom
+                          className="w-8 h-8 text-qblack"
+                          icon={item.icon}
+                        />
                       </div>
                     </div>
                     <div>

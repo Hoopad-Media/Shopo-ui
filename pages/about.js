@@ -1,5 +1,6 @@
 import About from "../src/components/About";
 import PageHead from "../src/components/Helpers/PageHead";
+import { PublicBaseUrl } from "../utils/apiRequest";
 export default function aboutPage({ data }) {
   const { seoSetting } = data;
   return (
@@ -14,7 +15,7 @@ export default function aboutPage({ data }) {
 }
 export async function getServerSideProps() {
   // Fetch data from external API
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/about-us`);
+  const res = await fetch(`${PublicBaseUrl}api/about-us`);
   const data = await res.json();
   return { props: { data } };
 }

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
 import DataIteration from "../Helpers/DataIteration";
 export default function BrandSection({ className, sectionTitle, brands = [] }) {
   return (
@@ -30,7 +31,7 @@ export default function BrandSection({ className, sectionTitle, brands = [] }) {
                     <Image
                       layout="fill"
                       objectFit="scale-down"
-                      src={`${process.env.NEXT_PUBLIC_BASE_URL + datas.logo}`}
+                      src={`${PublicBaseUrl + datas.logo}`}
                       alt={datas.name}
                     />
                   </div>

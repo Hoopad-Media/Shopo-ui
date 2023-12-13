@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import apiRequest from "../../../utils/apiRequest";
+import apiRequest, { PublicBaseUrl } from "../../../utils/apiRequest";
 import auth from "../../../utils/auth";
 import settings from "../../../utils/settings";
 import { fetchWishlist } from "../../store/wishlistData";
-import CheckProductIsExistsInFlashSale from "../Shared/CheckProductIsExistsInFlashSale";
 import ServeLangItem from "../Helpers/ServeLangItem";
-import { useRouter } from "next/router";
+import CheckProductIsExistsInFlashSale from "../Shared/CheckProductIsExistsInFlashSale";
 
 export default function ProductsTable({ className, products }) {
   const dispatch = useDispatch();
@@ -127,10 +127,7 @@ export default function ProductsTable({ className, products }) {
                       <div className="w-[80px] h-[80px] overflow-hidden flex justify-center items-center border border-[#EDEDED] relative">
                         <Image
                           layout="fill"
-                          src={`${
-                            process.env.NEXT_PUBLIC_BASE_URL +
-                            item.product.thumb_image
-                          }`}
+                          src={`${PublicBaseUrl + item.product.thumb_image}`}
                           alt="product"
                           className="w-full h-full object-contain"
                         />

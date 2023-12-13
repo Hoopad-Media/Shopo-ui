@@ -6,60 +6,70 @@ import InputCom from "../../../Helpers/InputCom";
 import Selectbox from "../../../Helpers/Selectbox";
 // import apiRequest from "../../../../../utils/apiRequest";
 import { toast } from "react-toastify";
-import ServeLangItem from "../../../Helpers/ServeLangItem";
-import countries from "../../../../data/CountryCodes.json"
+import { PublicBaseUrl } from "../../../../../utils/apiRequest";
 import settings from "../../../../../utils/settings";
+import countries from "../../../../data/CountryCodes.json";
+import ServeLangItem from "../../../Helpers/ServeLangItem";
 export default function ProfileTab({ profileInfo, updatedProfile }) {
   const [name, setName] = useState(profileInfo.personInfo.name);
   const [email, setEmail] = useState(profileInfo.personInfo.email);
   const [phone, setPhone] = useState(null);
   const [countryDropdown, setCountryDropdown] = useState(null);
   const [country, setCountry] = useState(null);
-  useEffect(()=>{
-    if(profileInfo){
-      if(profileInfo.personInfo.country_id&& profileInfo.personInfo.country_id!==''){
+  useEffect(() => {
+    if (profileInfo) {
+      if (
+        profileInfo.personInfo.country_id &&
+        profileInfo.personInfo.country_id !== ""
+      ) {
         setCountry(parseInt(profileInfo.personInfo.country_id));
-      }else{
+      } else {
         setCountry(null);
       }
     }
-  },[profileInfo])
+  }, [profileInfo]);
   const [stateDropdown, setStateDropdown] = useState(null);
   const [state, setState] = useState(null);
-  useEffect(()=>{
-    if(profileInfo){
-      if(profileInfo.personInfo.state_id&& profileInfo.personInfo.state_id!==''){
+  useEffect(() => {
+    if (profileInfo) {
+      if (
+        profileInfo.personInfo.state_id &&
+        profileInfo.personInfo.state_id !== ""
+      ) {
         setState(parseInt(profileInfo.personInfo.state_id));
-      }else{
+      } else {
         setState(null);
       }
     }
-  },[profileInfo])
+  }, [profileInfo]);
   const [cityDropdown, setCityDropdown] = useState(null);
   const [city, setcity] = useState(null);
-  useEffect(()=>{
-    if(profileInfo){
-      if(profileInfo.personInfo.city_id&& profileInfo.personInfo.city_id!==''){
+  useEffect(() => {
+    if (profileInfo) {
+      if (
+        profileInfo.personInfo.city_id &&
+        profileInfo.personInfo.city_id !== ""
+      ) {
         setcity(parseInt(profileInfo.personInfo.city_id));
-      }else{
+      } else {
         setcity(null);
       }
     }
-  },[profileInfo])
+  }, [profileInfo]);
   const [address, setAddress] = useState(profileInfo.personInfo.address);
   const [errors, setErrors] = useState(null);
   const [formImg, setFormImag] = useState(null);
   const [getCountries, setGetCountries] = useState(null);
   const [countryDropToggle, setCountryDropToggle] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("BD");
-  const selectCountryhandler=(value)=>{
+  const selectCountryhandler = (value) => {
     setSelectedCountry(value.code);
     setPhone(value.dial_code);
     setCountryDropToggle(false);
   };
   useEffect(() => {
-    if(!getCountries){
-      setGetCountries(countries&&countries.countries);
+    if (!getCountries) {
+      setGetCountries(countries && countries.countries);
     }
   }, [getCountries]);
   const getState = (value) => {
@@ -67,9 +77,9 @@ export default function ProfileTab({ profileInfo, updatedProfile }) {
       setCountry(value.id);
       axios
         .get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}api/user/state-by-country/${
-            value.id
-          }?token=${auth().access_token}`
+          `${PublicBaseUrl}api/user/state-by-country/${value.id}?token=${
+            auth().access_token
+          }`
         )
         .then((res) => {
           setCityDropdown(null);
@@ -87,9 +97,9 @@ export default function ProfileTab({ profileInfo, updatedProfile }) {
       setState(value.id);
       axios
         .get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}api/user/city-by-state/${
-            value.id
-          }?token=${auth().access_token}`
+          `${PublicBaseUrl}api/user/city-by-state/${value.id}?token=${
+            auth().access_token
+          }`
         )
         .then((res) => {
           setCityDropdown(res.data && res.data.cities);
@@ -108,23 +118,27 @@ export default function ProfileTab({ profileInfo, updatedProfile }) {
   };
   useEffect(() => {
     if (auth()) {
-      if(profileInfo&& profileInfo.countries&&profileInfo.countries.length>0){
-        setCountryDropdown(profileInfo.countries)
-      }else{
+      if (
+        profileInfo &&
+        profileInfo.countries &&
+        profileInfo.countries.length > 0
+      ) {
+        setCountryDropdown(profileInfo.countries);
+      } else {
         axios
-            .get(
-                `${process.env.NEXT_PUBLIC_BASE_URL}api/user/address/create?token=${
-                    auth().access_token
-                }`
-            )
-            .then((res) => {
-              if (res.data) {
-                setCountryDropdown(res.data.countries);
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          .get(
+            `${PublicBaseUrl}api/user/address/create?token=${
+              auth().access_token
+            }`
+          )
+          .then((res) => {
+            if (res.data) {
+              setCountryDropdown(res.data.countries);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     }
   }, [profileInfo]);
@@ -161,9 +175,9 @@ export default function ProfileTab({ profileInfo, updatedProfile }) {
       formData.append("city", city);
       await axios({
         method: "post",
-        url: `${
-          process.env.NEXT_PUBLIC_BASE_URL
-        }api/user/update-profile?token=${auth().access_token}`,
+        url: `${PublicBaseUrl}api/user/update-profile?token=${
+          auth().access_token
+        }`,
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       })
@@ -178,22 +192,29 @@ export default function ProfileTab({ profileInfo, updatedProfile }) {
       return false;
     }
   };
-  const {default_phone_code}=settings();
-  useEffect(()=>{
-    if(default_phone_code){
-      let defaultCountry=getCountries && getCountries.length>0 && getCountries.find((item)=>item.code===default_phone_code);
-      if(defaultCountry){
-       setPhone(()=>{
-         if(profileInfo&& profileInfo.personInfo.phone && profileInfo.personInfo.phone !== "null"){
-           return profileInfo.personInfo.phone
-         }else{
-           return defaultCountry.dial_code
-         }
-       })
+  const { default_phone_code } = settings();
+  useEffect(() => {
+    if (default_phone_code) {
+      let defaultCountry =
+        getCountries &&
+        getCountries.length > 0 &&
+        getCountries.find((item) => item.code === default_phone_code);
+      if (defaultCountry) {
+        setPhone(() => {
+          if (
+            profileInfo &&
+            profileInfo.personInfo.phone &&
+            profileInfo.personInfo.phone !== "null"
+          ) {
+            return profileInfo.personInfo.phone;
+          } else {
+            return defaultCountry.dial_code;
+          }
+        });
         setSelectedCountry(defaultCountry.code);
       }
     }
-  }, [default_phone_code, getCountries])
+  }, [default_phone_code, getCountries]);
   return (
     <>
       {profileInfo && (
@@ -265,28 +286,62 @@ export default function ProfileTab({ profileInfo, updatedProfile }) {
                   ) : (
                     ""
                   )}
-                  <button onClick={()=>setCountryDropToggle(!countryDropToggle)} type="button" className="w-[70px] h-[50px] bg-qgray-border absolute left-0 top-[29px] flex justify-center items-center">
+                  <button
+                    onClick={() => setCountryDropToggle(!countryDropToggle)}
+                    type="button"
+                    className="w-[70px] h-[50px] bg-qgray-border absolute left-0 top-[29px] flex justify-center items-center"
+                  >
                     <div className="flex items-center">
-                  <span>
-                    <Image width="30" height="20" src={`/assets/images/countries/${selectedCountry}.svg`} alt="country"/>
-                  </span>
+                      <span>
+                        <Image
+                          width="30"
+                          height="20"
+                          src={`/assets/images/countries/${selectedCountry}.svg`}
+                          alt="country"
+                        />
+                      </span>
                       <span className="text-qgray">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 14l-4-4h8z"/></svg>
-                  </span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          width="24"
+                          height="24"
+                        >
+                          <path fill="none" d="M0 0h24v24H0z" />
+                          <path d="M12 14l-4-4h8z" />
+                        </svg>
+                      </span>
                     </div>
                   </button>
-                  <div style={{boxShadow: "rgb(0 0 0 / 14%) 0px 15px 50px 0px",display:countryDropToggle?'block':'none'}} className="country-dropdown-list w-[250px] h-[250px] bg-white absolute left-0 top-[80px] z-20 overflow-y-scroll">
+                  <div
+                    style={{
+                      boxShadow: "rgb(0 0 0 / 14%) 0px 15px 50px 0px",
+                      display: countryDropToggle ? "block" : "none",
+                    }}
+                    className="country-dropdown-list w-[250px] h-[250px] bg-white absolute left-0 top-[80px] z-20 overflow-y-scroll"
+                  >
                     <ul>
-                      {getCountries && getCountries.length>0&&getCountries.map((item,i)=>(
-                          <li onClick={()=>selectCountryhandler(item)} key={i} className="flex space-x-1.5 items-center px-3 py-1 cursor-pointer">
-                        <span className="w-[25px]">
-                           <Image width="25" height="15" src={`/assets/images/countries/${item.code}.svg`} alt="country"/>
-                        </span>
+                      {getCountries &&
+                        getCountries.length > 0 &&
+                        getCountries.map((item, i) => (
+                          <li
+                            onClick={() => selectCountryhandler(item)}
+                            key={i}
+                            className="flex space-x-1.5 items-center px-3 py-1 cursor-pointer"
+                          >
+                            <span className="w-[25px]">
+                              <Image
+                                width="25"
+                                height="15"
+                                src={`/assets/images/countries/${item.code}.svg`}
+                                alt="country"
+                              />
+                            </span>
                             <span className="text-sm text-qgray capitalize flex-1">
-                          {item.name}
-                        </span>
+                              {item.name}
+                            </span>
                           </li>
-                      ))}
+                        ))}
                     </ul>
                   </div>
                 </div>
@@ -537,7 +592,7 @@ export default function ProfileTab({ profileInfo, updatedProfile }) {
                         src={
                           profileImg
                             ? `${profileImg}`
-                            : `${process.env.NEXT_PUBLIC_BASE_URL + getImg}`
+                            : `${PublicBaseUrl + getImg}`
                         }
                         alt=""
                         className="object-cover w-full h-full"

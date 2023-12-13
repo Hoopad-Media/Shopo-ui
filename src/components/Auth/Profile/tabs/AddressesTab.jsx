@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import apiRequest from "../../../../../utils/apiRequest";
+import apiRequest, { PublicBaseUrl } from "../../../../../utils/apiRequest";
 import auth from "../../../../../utils/auth";
 import InputCom from "../../../Helpers/InputCom";
 import LoaderStyleOne from "../../../Helpers/Loaders/LoaderStyleOne";
@@ -27,11 +27,7 @@ export default function AddressesTab() {
   const [loading, setLoading] = useState(false);
   const getAllAddress = () => {
     axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}api/user/address?token=${
-          auth().access_token
-        }`
-      )
+      .get(`${PublicBaseUrl}api/user/address?token=${auth().access_token}`)
       .then((res) => {
         res.data && setAddresses(res.data.addresses);
       })
@@ -44,9 +40,7 @@ export default function AddressesTab() {
       getAllAddress();
       axios
         .get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}api/user/address/create?token=${
-            auth().access_token
-          }`
+          `${PublicBaseUrl}api/user/address/create?token=${auth().access_token}`
         )
         .then((res) => {
           if (res.data) {
@@ -63,9 +57,9 @@ export default function AddressesTab() {
       setCountry(value.id);
       await axios
         .get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}api/user/state-by-country/${
-            value.id
-          }?token=${auth().access_token}`
+          `${PublicBaseUrl}api/user/state-by-country/${value.id}?token=${
+            auth().access_token
+          }`
         )
         .then((res) => {
           setCityDropdown(null);
@@ -83,9 +77,9 @@ export default function AddressesTab() {
       setState(value.id);
       await axios
         .get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}api/user/city-by-state/${
-            value.id
-          }?token=${auth().access_token}`
+          `${PublicBaseUrl}api/user/city-by-state/${value.id}?token=${
+            auth().access_token
+          }`
         )
         .then((res) => {
           setCityDropdown(res.data && res.data.cities);

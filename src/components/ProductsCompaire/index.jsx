@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import isAuth from "../../../Middleware/isAuth";
-import apiRequest from "../../../utils/apiRequest";
+import apiRequest, { PublicBaseUrl } from "../../../utils/apiRequest";
 import auth from "../../../utils/auth";
 import { fetchCompareProducts } from "../../store/compareProduct";
-import Star from "../Helpers/icons/Star";
 import PageTitle from "../Helpers/PageTitle";
-import CheckProductIsExistsInFlashSale from "../Shared/CheckProductIsExistsInFlashSale";
 import ServeLangItem from "../Helpers/ServeLangItem";
+import Star from "../Helpers/icons/Star";
+import CheckProductIsExistsInFlashSale from "../Shared/CheckProductIsExistsInFlashSale";
 function ProductsCompaire() {
   const dispatch = useDispatch();
   const [compareProducts, setProducts] = useState(null);
@@ -95,7 +95,6 @@ function ProductsCompaire() {
     }
   };
   const price = (item) => {
-
     if (item) {
       const prices =
         item.variants &&
@@ -128,7 +127,10 @@ function ProductsCompaire() {
         <PageTitle
           breadcrumb={[
             { name: ServeLangItem()?.home, path: "/" },
-            { name: ServeLangItem()?.Product_Compaire, path: "/index.js-compaire" },
+            {
+              name: ServeLangItem()?.Product_Compaire,
+              path: "/index.js-compaire",
+            },
           ]}
           title="Product Comparison"
         />
@@ -152,10 +154,13 @@ function ProductsCompaire() {
                   >
                     <div className="">
                       <h1 className="text-[18px] font-medium text-qblack mb-4">
-                          {ServeLangItem()?.Product_Comparison}
+                        {ServeLangItem()?.Product_Comparison}
                       </h1>
                       <p className="text-[13px] text-qgraytwo">
-                          {ServeLangItem()?.Select_products_to_see_the_differences_and_similarities_between_them}
+                        {
+                          ServeLangItem()
+                            ?.Select_products_to_see_the_differences_and_similarities_between_them
+                        }
                       </p>
                     </div>
                   </td>
@@ -207,9 +212,7 @@ function ProductsCompaire() {
                             <Image
                               layout="fill"
                               objectFit="scale-down"
-                              src={`${
-                                process.env.NEXT_PUBLIC_BASE_URL + item.image
-                              }`}
+                              src={`${PublicBaseUrl + item.image}`}
                               alt=""
                               className="w-full h-full object-contain"
                             />
@@ -268,7 +271,7 @@ function ProductsCompaire() {
                   >
                     <div className="">
                       <h1 className="text-[15px] font-medium text-qblack ">
-                          {ServeLangItem()?.Star_Rating}
+                        {ServeLangItem()?.Star_Rating}
                       </h1>
                     </div>
                   </td>
@@ -320,7 +323,7 @@ function ProductsCompaire() {
                   >
                     <div className="">
                       <h1 className="text-[15px] font-medium text-qblack ">
-                          {ServeLangItem()?.Availability}
+                        {ServeLangItem()?.Availability}
                       </h1>
                     </div>
                   </td>
@@ -363,7 +366,7 @@ function ProductsCompaire() {
                   >
                     <div className="">
                       <h1 className="text-[15px] font-medium text-qblack ">
-                          {ServeLangItem()?.Specification}
+                        {ServeLangItem()?.Specification}
                       </h1>
                     </div>
                   </td>
@@ -384,24 +387,24 @@ function ProductsCompaire() {
                         }}
                         className="product bg-white px-6 border-r border-qgray-border pb-[20px] align-top"
                       >
-                          {item.specifications.length > 0 ? (
-                              item.specifications.map((sp, i) => (
-                                  <ul key={i}>
-                                      <li className="mb-2">
-                                          <p className="text-qblack text-sm font-semibold">
-                                              {sp.key.key}
-                                          </p>
-                                          <span className="text-[13px] font-normal text-qgraytwo">
+                        {item.specifications.length > 0 ? (
+                          item.specifications.map((sp, i) => (
+                            <ul key={i}>
+                              <li className="mb-2">
+                                <p className="text-qblack text-sm font-semibold">
+                                  {sp.key.key}
+                                </p>
+                                <span className="text-[13px] font-normal text-qgraytwo">
                                   {sp.specification}
                                 </span>
-                                      </li>
-                                  </ul>
-                              ))
-                          ) : (
-                              <span className="text-[13px] font-normal text-qgraytwo">
+                              </li>
+                            </ul>
+                          ))
+                        ) : (
+                          <span className="text-[13px] font-normal text-qgraytwo">
                             N/A
                           </span>
-                          )}
+                        )}
                       </td>
                     ))}
                 </tr>
@@ -411,12 +414,14 @@ function ProductsCompaire() {
         ) : (
           <div className="w-full h-96 flex justify-center items-center border border-qgray-border">
             <div>
-              <p className="text-xl text-qblack ">{ServeLangItem()?.Your_Compare_List_Is_Empty}</p>
+              <p className="text-xl text-qblack ">
+                {ServeLangItem()?.Your_Compare_List_Is_Empty}
+              </p>
               <Link href="/">
                 <div className="flex justify-center w-full mt-5 cursor-pointer">
                   <div className="w-[180px] h-[50px] ">
                     <span type="button" className="yellow-btn">
-                     {ServeLangItem()?.Back_to_Shop}
+                      {ServeLangItem()?.Back_to_Shop}
                     </span>
                   </div>
                 </div>

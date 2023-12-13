@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useEffect } from "react";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
 import settings from "../../../utils/settings";
 import ShopNowBtn from "../Helpers/Buttons/ShopNowBtn";
 import ServeLangItem from "../Helpers/ServeLangItem";
@@ -45,7 +46,7 @@ export default function Banner({
                           <div
                             style={{
                               backgroundImage: `url(${
-                                process.env.NEXT_PUBLIC_BASE_URL + item.image
+                                PublicBaseUrl + item.image
                               })`,
                               backgroundSize: "cover",
                               backgroundRepeat: "no-repeat",
@@ -94,7 +95,7 @@ export default function Banner({
                   className="w-full xl:h-1/2 xl:mr-0 mr-2 relative flex items-center group rtl:md:pr-[40px] ltr:md:pl-[40px] rtl:pr-[30] ltr:pl-[30px]"
                   style={{
                     backgroundImage: `url(${
-                      process.env.NEXT_PUBLIC_BASE_URL + sidebarImgOne.image
+                      PublicBaseUrl + sidebarImgOne.image
                     })`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
@@ -168,7 +169,7 @@ export default function Banner({
                 <div
                   style={{
                     backgroundImage: `url(${
-                      process.env.NEXT_PUBLIC_BASE_URL + sidebarImgTwo.image
+                      PublicBaseUrl + sidebarImgTwo.image
                     })`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",

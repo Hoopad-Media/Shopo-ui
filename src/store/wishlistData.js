@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PublicBaseUrl } from "../../utils/apiRequest";
 import auth from "../../utils/auth";
+
 const initialState = {
   wishlistData: null,
   status: null,
@@ -9,9 +11,7 @@ export const fetchWishlist = createAsyncThunk(
   async () => {
     if (auth()) {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}api/user/wishlist?token=${
-          auth().access_token
-        }`,
+        `${PublicBaseUrl}api/user/wishlist?token=${auth().access_token}`,
         {
           method: "GET",
           headers: {

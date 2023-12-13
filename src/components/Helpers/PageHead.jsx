@@ -1,5 +1,6 @@
 import Head from "next/head";
 import React from "react";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
 import settings from "../../../utils/settings";
 function PageHead(props) {
   const { title } = props;
@@ -11,9 +12,7 @@ function PageHead(props) {
       <meta name="description" content={metaDes} />
       <link
         rel="icon"
-        href={`${
-          favicon ? process.env.NEXT_PUBLIC_BASE_URL + favicon : "/favico.svg"
-        }`}
+        href={`${favicon ? PublicBaseUrl + favicon : "/favico.svg"}`}
       />
     </Head>
   );

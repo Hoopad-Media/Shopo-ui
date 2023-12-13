@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import isMultivendor from "../../../Middleware/isMultivendor";
-import Star from "../Helpers/icons/Star";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
 import PageTitle from "../Helpers/PageTitle";
 import ServeLangItem from "../Helpers/ServeLangItem";
+import Star from "../Helpers/icons/Star";
 function Sallers({ sellersData }) {
   const { sellers } = sellersData;
   return (
@@ -166,7 +167,6 @@ function Sallers({ sellersData }) {
                                           width="6.94219"
                                           height="1.54271"
                                           transform="rotate(45 1.0918 0.636719)"
-
                                         />
                                         <rect
                                           x="6.00195"
@@ -174,7 +174,6 @@ function Sallers({ sellersData }) {
                                           width="6.94219"
                                           height="1.54271"
                                           transform="rotate(135 6.00195 5.54492)"
-
                                         />
                                       </svg>
                                     </span>
@@ -192,9 +191,7 @@ function Sallers({ sellersData }) {
                             <Image
                               layout="fill"
                               objectFit="scale-down"
-                              src={`${
-                                process.env.NEXT_PUBLIC_BASE_URL + seller.logo
-                              }`}
+                              src={`${PublicBaseUrl + seller.logo}`}
                               alt=""
                             />
                           </div>

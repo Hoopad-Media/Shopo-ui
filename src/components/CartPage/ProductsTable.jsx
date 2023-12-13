@@ -1,10 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
 import settings from "../../../utils/settings";
 import InputQuantityCom from "../Helpers/InputQuantityCom";
-import CheckProductIsExistsInFlashSale from "../Shared/CheckProductIsExistsInFlashSale";
-import Link from "next/link";
 import ServeLangItem from "../Helpers/ServeLangItem";
+import CheckProductIsExistsInFlashSale from "../Shared/CheckProductIsExistsInFlashSale";
 
 export default function ProductsTable({
   className,
@@ -25,7 +26,6 @@ export default function ProductsTable({
           const sumVarient = prices.reduce((p, c) => p + c);
           return parseInt(item.product.offer_price) + sumVarient;
         } else {
-
           return item.product.offer_price;
         }
       } else {
@@ -72,9 +72,15 @@ export default function ProductsTable({
               <td className="py-4 pl-10 block whitespace-nowrap min-w-[300px]">
                 {ServeLangItem()?.Product}
               </td>
-              <td className="py-4 whitespace-nowrap text-center">{ServeLangItem()?.Price}</td>
-              <td className="py-4 whitespace-nowrap  text-center">{ServeLangItem()?.quantity}</td>
-              <td className="py-4 whitespace-nowrap  text-center">{ServeLangItem()?.total}</td>
+              <td className="py-4 whitespace-nowrap text-center">
+                {ServeLangItem()?.Price}
+              </td>
+              <td className="py-4 whitespace-nowrap  text-center">
+                {ServeLangItem()?.quantity}
+              </td>
+              <td className="py-4 whitespace-nowrap  text-center">
+                {ServeLangItem()?.total}
+              </td>
               <td className="py-4 whitespace-nowrap text-right w-[114px]"></td>
             </tr>
             {/* table heading end */}
@@ -90,20 +96,17 @@ export default function ProductsTable({
                       <div className="w-[80px] h-[80px] overflow-hidden flex justify-center items-center border border-[#EDEDED] relative">
                         <Image
                           layout="fill"
-                          src={`${
-                            process.env.NEXT_PUBLIC_BASE_URL +
-                            item.product.thumb_image
-                          }`}
+                          src={`${PublicBaseUrl + item.product.thumb_image}`}
                           alt="product"
                           className="w-full h-full object-contain"
                         />
                       </div>
                       <div className="flex-1 flex flex-col">
                         <Link
-                            href={{
-                              pathname: "/single-product",
-                              query: { slug: item.product.slug },
-                            }}
+                          href={{
+                            pathname: "/single-product",
+                            query: { slug: item.product.slug },
+                          }}
                         >
                           <p className="font-medium text-[15px] text-qblack hover:text-blue-500 cursor-pointer">
                             {item.product.name}
@@ -115,10 +118,10 @@ export default function ProductsTable({
                   <td className="text-center py-4 px-2">
                     <div className="flex space-x-1 items-center justify-center">
                       <span className="text-[15px] font-normal">
-                       <CheckProductIsExistsInFlashSale
-                           id={item.product_id}
-                           price={price(item)}
-                       />
+                        <CheckProductIsExistsInFlashSale
+                          id={item.product_id}
+                          price={price(item)}
+                        />
                       </span>
                     </div>
                   </td>

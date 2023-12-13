@@ -1,6 +1,7 @@
 import React from "react";
 import FlashSale from "../src/components/FlashSale";
 import PageHead from "../src/components/Helpers/PageHead";
+import { PublicBaseUrl } from "../utils/apiRequest";
 export default function flashSalePage(data) {
   const { seoSetting } = data.data;
   return (
@@ -14,7 +15,7 @@ export default function flashSalePage(data) {
   );
 }
 export const getServerSideProps = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/flash-sale`);
+  const res = await fetch(`${PublicBaseUrl}api/flash-sale`);
   const data = await res.json();
   return {
     props: {

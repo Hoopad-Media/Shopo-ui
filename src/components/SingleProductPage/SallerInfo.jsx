@@ -1,9 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
 import ProductCardStyleOne from "../Helpers/Cards/ProductCardStyleOne";
 import DataIteration from "../Helpers/DataIteration";
-import Star from "../Helpers/icons/Star";
-import Link from "next/link";
 import ServeLangItem from "../Helpers/ServeLangItem";
+import Star from "../Helpers/icons/Star";
+
 export default function SallerInfo({ products, sellerInfo }) {
   const { seller } = sellerInfo;
   const rs =
@@ -13,7 +15,7 @@ export default function SallerInfo({ products, sellerInfo }) {
         id: item.id,
         title: item.name,
         slug: item.slug,
-        image: process.env.NEXT_PUBLIC_BASE_URL + item.thumb_image,
+        image: PublicBaseUrl + item.thumb_image,
         price: item.price,
         offer_price: item.offer_price,
         campaingn_product: null,
@@ -31,7 +33,7 @@ export default function SallerInfo({ products, sellerInfo }) {
                 layout="fill"
                 src={`${
                   seller.user.image
-                    ? process.env.NEXT_PUBLIC_BASE_URL + seller.user.image
+                    ? PublicBaseUrl + seller.user.image
                     : "/assets/images/Group.png"
                 }`}
                 alt="saller"
@@ -123,7 +125,9 @@ export default function SallerInfo({ products, sellerInfo }) {
         </div>
       </div>
       <div className="saller-product w-full mt-[30px]">
-        <h1 className="text-[18px] font-medium mb-5">{ServeLangItem()?.Product_from_Shop}</h1>
+        <h1 className="text-[18px] font-medium mb-5">
+          {ServeLangItem()?.Product_from_Shop}
+        </h1>
         <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 xl:gap-[30px] gap-5">
           <DataIteration
             datas={rs}

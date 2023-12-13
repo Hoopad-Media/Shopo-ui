@@ -2,9 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import DateFormat from "../../../../../utils/DateFormat";
+import { PublicBaseUrl } from "../../../../../utils/apiRequest";
 import DataIteration from "../../../Helpers/DataIteration";
-import Star from "../../../Helpers/icons/Star";
 import ServeLangItem from "../../../Helpers/ServeLangItem";
+import Star from "../../../Helpers/icons/Star";
 
 export default function ReviewTab({ className, reviews }) {
   return (
@@ -29,10 +30,7 @@ export default function ReviewTab({ className, reviews }) {
                       <Image
                         layout="fill"
                         objectFit="scale-down"
-                        src={`${
-                          process.env.NEXT_PUBLIC_BASE_URL +
-                          datas.product.thumb_image
-                        }`}
+                        src={`${PublicBaseUrl + datas.product.thumb_image}`}
                         alt=""
                         className="w-full h-full object-contain"
                       />

@@ -1,6 +1,7 @@
 import React from "react";
 import AllProductPage from "../../src/components/AllProductPage/index";
 import PageHead from "../../src/components/Helpers/PageHead";
+import { PublicBaseUrl } from "../../utils/apiRequest";
 
 export default function allproductsPage(data) {
   return (
@@ -12,7 +13,7 @@ export default function allproductsPage(data) {
 }
 export const getServerSideProps = async (context) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}api/product?${
+    `${PublicBaseUrl}api/product?${
       context.query.search
         ? `search=${context.query.search}`
         : context.query.category && context.query.search

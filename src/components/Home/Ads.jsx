@@ -1,10 +1,10 @@
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import apiRequest from "../../../utils/apiRequest";
+import apiRequest, { PublicBaseUrl } from "../../../utils/apiRequest";
 import settings from "../../../utils/settings";
-import Link from "next/link";
-import Image from "next/image";
 import ServeLangItem from "../Helpers/ServeLangItem";
 export default function Ads({ handler }) {
   const { websiteSetup } = useSelector((state) => state.websiteSetup);
@@ -68,9 +68,7 @@ export default function Ads({ handler }) {
             <div
               className="lg:w-[812px] md:w-[650px] w-[310px] md:h-[509px] relative z-50 bg-slate-700 ltr:md:pl-10 ltr:pl-3 rtl:md:pr-10 rtl:pr-3 pr-3 md:py-[108px] py-20 flex flex-col justify-end overflow-hidden"
               style={{
-                backgroundImage: `url(${
-                  process.env.NEXT_PUBLIC_BASE_URL + announcment.image
-                })`,
+                backgroundImage: `url(${PublicBaseUrl + announcment.image})`,
                 backgroundRepeat: " no-repeat",
                 backgroundSize: "cover",
               }}
@@ -84,7 +82,7 @@ export default function Ads({ handler }) {
                         height="36"
                         src={`${
                           logo
-                            ? process.env.NEXT_PUBLIC_BASE_URL + logo
+                            ? PublicBaseUrl + logo
                             : "/assets/images/logo.svg"
                         }`}
                         alt="logo"

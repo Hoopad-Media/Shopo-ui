@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { PublicBaseUrl } from "../../utils/apiRequest";
 // import settings from "../../utils/settings";
 
 function Maintain() {
@@ -23,7 +24,7 @@ function Maintain() {
                   width="300"
                   height="300"
                   objectFit="scale-down"
-                  src={`${process.env.NEXT_PUBLIC_BASE_URL + maintain.image}`}
+                  src={`${PublicBaseUrl + maintain.image}`}
                   alt="logo"
                 />
               )}

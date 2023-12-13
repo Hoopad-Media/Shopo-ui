@@ -1,30 +1,29 @@
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import apiRequest from "../../../utils/apiRequest";
+import apiRequest, { PublicBaseUrl } from "../../../utils/apiRequest";
 import auth from "../../../utils/auth";
 import BreadcrumbCom from "../BreadcrumbCom";
 import ProductCardStyleOne from "../Helpers/Cards/ProductCardStyleOne";
 import DataIteration from "../Helpers/DataIteration";
 import InputCom from "../Helpers/InputCom";
 import LoaderStyleOne from "../Helpers/Loaders/LoaderStyleOne";
+import ServeLangItem from "../Helpers/ServeLangItem";
 import Layout from "../Partials/Layout";
-import Multivendor from "../Shared/Multivendor";
 import ProductView from "./ProductView";
 import Reviews from "./Reviews";
 import SallerInfo from "./SallerInfo";
-import ServeLangItem from "../Helpers/ServeLangItem";
 
 export default function SingleProductPage({ details }) {
   const router = useRouter();
   const [tab, setTab] = useState("des");
   const reviewElement = useRef(null);
   const [report, setReport] = useState(false);
-  const ReportHandler =()=>{
-    if(auth()){
+  const ReportHandler = () => {
+    if (auth()) {
       setReport(!report);
-    }else{
-      router.push("/login")
+    } else {
+      router.push("/login");
     }
   };
   const [reportLoading, setReportLoading] = useState(false);
@@ -45,9 +44,7 @@ export default function SingleProductPage({ details }) {
             comments: review.review,
             review: parseInt(review.rating),
             replys: null,
-            image: review.user.image
-              ? process.env.NEXT_PUBLIC_BASE_URL + review.user.image
-              : null,
+            image: review.user.image ? PublicBaseUrl + review.user.image : null,
           };
         });
       setComments(reviews);
@@ -68,7 +65,7 @@ export default function SingleProductPage({ details }) {
       id: item.id,
       title: item.name,
       slug: item.slug,
-      image: process.env.NEXT_PUBLIC_BASE_URL + item.thumb_image,
+      image: PublicBaseUrl + item.thumb_image,
       price: item.price,
       offer_price: item.offer_price,
       campaingn_product: null,
@@ -120,7 +117,10 @@ export default function SingleProductPage({ details }) {
                   <BreadcrumbCom
                     paths={[
                       { name: ServeLangItem()?.home, path: "/" },
-                      { name: details.product.slug, path:  `/single-product?slug=${details.product.slug}` },
+                      {
+                        name: details.product.slug,
+                        path: `/single-product?slug=${details.product.slug}`,
+                      },
                     ]}
                   />
                 </div>
@@ -132,7 +132,7 @@ export default function SingleProductPage({ details }) {
                     product={details.product}
                     images={details.gellery}
                     reportHandler={ReportHandler}
-                    seller={details.seller ? details.seller:false}
+                    seller={details.seller ? details.seller : false}
                   />
                 </div>
               </div>
@@ -230,7 +230,10 @@ export default function SingleProductPage({ details }) {
                                   key={i}
                                   className=" leading-9 flex space-x-3 items-center"
                                 >
-                                  <span className="text-qblack font-medium capitalize"> {item.key.key}:</span>
+                                  <span className="text-qblack font-medium capitalize">
+                                    {" "}
+                                    {item.key.key}:
+                                  </span>
                                   <span className="font-normal text-qgray">
                                     {item.specification}
                                   </span>
@@ -320,7 +323,9 @@ export default function SingleProductPage({ details }) {
                 style={{ zIndex: "999" }}
               >
                 <div className="title-bar flex items-center justify-between mb-3">
-                  <h6 className="text-2xl font-medium">{ServeLangItem()?.Report_Products}</h6>
+                  <h6 className="text-2xl font-medium">
+                    {ServeLangItem()?.Report_Products}
+                  </h6>
                   <span
                     className="cursor-pointer"
                     onClick={() => setReport(!report)}
@@ -343,7 +348,7 @@ export default function SingleProductPage({ details }) {
                 <div className="inputs w-full">
                   <div className="w-full mb-5">
                     <InputCom
-                      label={ServeLangItem()?.Enter_Report_Ttile+"*"}
+                      label={ServeLangItem()?.Enter_Report_Ttile + "*"}
                       placeholder={ServeLangItem()?.Reports_Headline_here}
                       type="text"
                       name="name"
@@ -353,13 +358,11 @@ export default function SingleProductPage({ details }) {
                       inputHandler={(e) => setSubject(e.target.value)}
                       error={
                         !!(
-                          reportErrors &&
-                          Object.hasOwn(reportErrors, "subject")
+                          reportErrors && Object.hasOwn(reportErrors, "subject")
                         )
                       }
                     />
-                    {reportErrors &&
-                    Object.hasOwn(reportErrors, "subject") ? (
+                    {reportErrors && Object.hasOwn(reportErrors, "subject") ? (
                       <span className="text-sm mt-1 text-qred">
                         {reportErrors.subject[0]}
                       </span>
@@ -383,7 +386,8 @@ export default function SingleProductPage({ details }) {
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
-                    {reportErrors && Object.hasOwn(reportErrors, "description") ? (
+                    {reportErrors &&
+                    Object.hasOwn(reportErrors, "description") ? (
                       <span className="text-sm mt-1 text-qred">
                         {reportErrors.description[0]}
                       </span>

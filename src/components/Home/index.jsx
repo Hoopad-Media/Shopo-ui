@@ -12,10 +12,11 @@ import BestSellers from "./BestSellers";
 import BrandSection from "./BrandSection";
 import CampaignCountDown from "./CampaignCountDown";
 // import ProductsAds from "./ProductsAds";
-import TwoColumnAds from "./ProductAds/TwoColumnAds";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
+import CategorySection from "./CategorySection";
 import OneColumnAdsOne from "./ProductAds/OneColumnAdsOne";
 import OneColumnAdsTwo from "./ProductAds/OneColumnAdsTwo";
-import CategorySection from "./CategorySection";
+import TwoColumnAds from "./ProductAds/TwoColumnAds";
 
 export default function Home({ homepageData }) {
   const getsectionTitles = homepageData.section_title;
@@ -65,8 +66,7 @@ export default function Home({ homepageData }) {
             products={homepage.popularCategoryProducts}
             categories={homepage.popularCategories}
             categoryBackground={
-              process.env.NEXT_PUBLIC_BASE_URL +
-              homepage.popularCategorySidebarBanner
+              PublicBaseUrl + homepage.popularCategorySidebarBanner
             }
             categoryTitle={sectionTitles && sectionTitles.Popular_Category}
             sectionTitle={sectionTitles && sectionTitles.Popular_Category}
@@ -98,7 +98,8 @@ export default function Home({ homepageData }) {
           >
             <SectionStyleTwo
               products={
-                homepage.topRatedProducts.length&& homepage.topRatedProducts.length > 0
+                homepage.topRatedProducts.length &&
+                homepage.topRatedProducts.length > 0
                   ? homepage.topRatedProducts
                   : []
               }
@@ -132,8 +133,7 @@ export default function Home({ homepageData }) {
                 : []
             }
             categoryBackground={
-              process.env.NEXT_PUBLIC_BASE_URL +
-              homepage.featuredCategorySidebarBanner
+              PublicBaseUrl + homepage.featuredCategorySidebarBanner
             }
             categoryTitle={sectionTitles && sectionTitles.Featured_Products}
             products={

@@ -22,7 +22,6 @@ import ServeLangItem from "../Helpers/ServeLangItem";
 import MessageWidget from "../MessageWidget";
 
 export default function DefaultLayout({ children }) {
-  console.log(process.env.NEXT_PUBLIC_BASE_URL);
   const router = useRouter();
   const dispatch = useDispatch();
   const getLoginContexts = useContext(LoginContext);
@@ -35,7 +34,7 @@ export default function DefaultLayout({ children }) {
   const [messageWid, setMessageWid] = useState(null);
   const apiFetch = () => {
     axios
-      .get(`https://panel.oxinmart.com/api/website-setup`)
+      .get(`https://mamunuiux.com/shopo/api/website-setup`)
       .then((res) => {
         // handle success
         console.log("https://panel.oxinmart.com/api/website-setup", "works !!");

@@ -1,13 +1,13 @@
+import Image from "next/dist/client/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import apiRequest from "../../../../utils/apiRequest";
+import apiRequest, { PublicBaseUrl } from "../../../../utils/apiRequest";
 import InputCom from "../../Helpers/InputCom";
 import LoaderStyleOne from "../../Helpers/Loaders/LoaderStyleOne";
-import Layout from "../../Partials/Layout";
-import { useSelector } from "react-redux";
-import Image from "next/dist/client/image";
 import ServeLangItem from "../../Helpers/ServeLangItem";
+import Layout from "../../Partials/Layout";
 
 export default function ForgotPass() {
   const { websiteSetup } = useSelector((state) => state.websiteSetup);
@@ -285,7 +285,7 @@ export default function ForgotPass() {
                   <Image
                     width={608}
                     height={480}
-                    src={`${process.env.NEXT_PUBLIC_BASE_URL + imgThumb}`}
+                    src={`${PublicBaseUrl + imgThumb}`}
                     alt="login"
                   />
                 )}

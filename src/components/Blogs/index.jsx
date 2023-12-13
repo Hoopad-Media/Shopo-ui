@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
 import BlogCard from "../Helpers/Cards/BlogCard";
 import DataIteration from "../Helpers/DataIteration";
 import LoaderStyleOne from "../Helpers/Loaders/LoaderStyleOne";
@@ -20,7 +21,7 @@ export default function Blogs({ blogs, nextPageUrl }) {
           comments_length: item.active_comments.length,
           title: item.title,
           article: item.description,
-          picture: process.env.NEXT_PUBLIC_BASE_URL + item.image,
+          picture: PublicBaseUrl + item.image,
           slug: item.slug,
         };
       });
@@ -46,7 +47,7 @@ export default function Blogs({ blogs, nextPageUrl }) {
                     comments_length: item.active_comments.length,
                     title: item.title,
                     article: item.description,
-                    picture: process.env.NEXT_PUBLIC_BASE_URL + item.image,
+                    picture: PublicBaseUrl + item.image,
                     slug: item.slug,
                   },
                 ]);
@@ -75,7 +76,7 @@ export default function Blogs({ blogs, nextPageUrl }) {
   //     comments_length: item.active_comments.length,
   //     title: item.title,
   //     article: item.description,
-  //     picture: process.env.NEXT_PUBLIC_BASE_URL + item.image,
+  //     picture: PublicBaseUrl + item.image,
   //     slug: item.slug,
   //   };
   // });

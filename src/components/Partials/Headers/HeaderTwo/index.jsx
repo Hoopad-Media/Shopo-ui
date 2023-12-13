@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { PublicBaseUrl } from "../../../../../utils/apiRequest";
 import ThinBag from "../../../Helpers/icons/ThinBag";
 import Navbar from "../../Headers/Header/Navbar";
 import TopBar from "../../Headers/Header/TopBar";
@@ -46,7 +47,7 @@ export default function HeaderTwo({ className, drawerAction, settings }) {
                   <Image
                     width="152"
                     height="36"
-                    src={`${process.env.NEXT_PUBLIC_BASE_URL + settings.logo}`}
+                    src={`${PublicBaseUrl + settings.logo}`}
                     alt="logo"
                   />
                 )}

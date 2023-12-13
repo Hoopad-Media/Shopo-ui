@@ -1,5 +1,6 @@
-import React from "react";
 import Link from "next/dist/client/link";
+import React from "react";
+import { PublicBaseUrl } from "../../../../utils/apiRequest";
 import ServeLangItem from "../../Helpers/ServeLangItem";
 
 function OneColumnAdsTwo({ data }) {
@@ -8,9 +9,7 @@ function OneColumnAdsTwo({ data }) {
       <div
         data-aos="fade-right"
         style={{
-          backgroundImage: `url(${
-            process.env.NEXT_PUBLIC_BASE_URL + data.image
-          })`,
+          backgroundImage: `url(${PublicBaseUrl + data.image})`,
           backgroundSize: `cover`,
           backgroundRepeat: `no-repeat`,
         }}

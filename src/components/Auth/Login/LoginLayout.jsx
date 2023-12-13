@@ -1,6 +1,7 @@
-import React from "react";
-import Layout from "../../Partials/Layout";
 import Image from "next/image";
+import React from "react";
+import { PublicBaseUrl } from "../../../../utils/apiRequest";
+import Layout from "../../Partials/Layout";
 
 function LoginLayout({ imgThumb, children }) {
   return (
@@ -21,7 +22,7 @@ function LoginLayout({ imgThumb, children }) {
                   <Image
                     width={608}
                     height={480}
-                    src={`${process.env.NEXT_PUBLIC_BASE_URL + imgThumb}`}
+                    src={`${PublicBaseUrl + imgThumb}`}
                     alt="login"
                   />
                 )}

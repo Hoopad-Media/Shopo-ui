@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { toast } from "react-toastify";
-import apiRequest from "../../../../utils/apiRequest";
 import DateFormat from "../../../../utils/DateFormat";
+import apiRequest, { PublicBaseUrl } from "../../../../utils/apiRequest";
 import PageTitle from "../../Helpers/PageTitle";
+import ServeLangItem from "../../Helpers/ServeLangItem";
 import Layout from "../../Partials/Layout";
 import CommentBlog from "./CommentBlog";
-import { useRouter } from "next/router";
-import { FacebookShareButton, TwitterShareButton } from "react-share";
-import ServeLangItem from "../../Helpers/ServeLangItem";
 export default function Blog({ details }) {
   const router = useRouter();
   const blog = details && details.blog;
@@ -109,9 +109,7 @@ export default function Blog({ details }) {
                 <div className="img w-full h-[457px] relative">
                   <Image
                     layout="fill"
-                    src={`${
-                      process.env.NEXT_PUBLIC_BASE_URL + details.blog.image
-                    }`}
+                    src={`${PublicBaseUrl + details.blog.image}`}
                     alt="blog"
                     className="w-full h-full object-cover"
                   />
@@ -488,10 +486,7 @@ export default function Blog({ details }) {
                           <div className="w-[85px] h-[92px]  overflow-hidden rounded relative">
                             <Image
                               layout="fill"
-                              src={`${
-                                process.env.NEXT_PUBLIC_BASE_URL +
-                                post.blog.image
-                              }`}
+                              src={`${PublicBaseUrl + post.blog.image}`}
                               alt="blog"
                               className="w-full h-full object-cover"
                             />

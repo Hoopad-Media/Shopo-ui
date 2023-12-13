@@ -1,8 +1,9 @@
 // import Empty from "./Empty";
-import Link from "next/link";
-import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
 import ServeLangItem from "../Helpers/ServeLangItem";
 export default function EmptyCardError() {
   const { websiteSetup } = useSelector((state) => state.websiteSetup);
@@ -21,14 +22,14 @@ export default function EmptyCardError() {
           <div className="sm:mb-10 mb-5 transform scale-50 sm:scale-100">
             {/*<Empty />*/}
             {emptyCart && (
-                <div className="w-[527px] h-[419px] relative">
-                  <Image
-                      layout="fill"
-                      objectFit="scale-down"
-                      src={`${process.env.NEXT_PUBLIC_BASE_URL}/${ emptyCart}`}
-                      alt="404"
-                  />
-                </div>
+              <div className="w-[527px] h-[419px] relative">
+                <Image
+                  layout="fill"
+                  objectFit="scale-down"
+                  src={`${PublicBaseUrl}/${emptyCart}`}
+                  alt="404"
+                />
+              </div>
             )}
           </div>
           <div data-aos="fade-up" className="empty-content w-full">

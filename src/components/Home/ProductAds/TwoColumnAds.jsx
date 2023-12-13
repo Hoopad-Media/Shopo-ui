@@ -1,5 +1,6 @@
-import React from "react";
 import Link from "next/link";
+import React from "react";
+import { PublicBaseUrl } from "../../../../utils/apiRequest";
 import ShopNowBtn from "../../Helpers/Buttons/ShopNowBtn";
 import ServeLangItem from "../../Helpers/ServeLangItem";
 
@@ -16,9 +17,7 @@ function TwoColumnAds({ bannerOne, bannerTwo }) {
             <div data-aos="fade-right" className={`h-full sm:w-1/2 w-full`}>
               <div
                 style={{
-                  backgroundImage: `url(${
-                    process.env.NEXT_PUBLIC_BASE_URL + bannerOne.image
-                  })`,
+                  backgroundImage: `url(${PublicBaseUrl + bannerOne.image})`,
                   backgroundSize: `cover`,
                   backgroundRepeat: `no-repeat`,
                 }}
@@ -61,9 +60,7 @@ function TwoColumnAds({ bannerOne, bannerTwo }) {
             <div data-aos="fade-left" className={`h-full sm:w-1/2 w-full`}>
               <div
                 style={{
-                  backgroundImage: `url(${
-                    process.env.NEXT_PUBLIC_BASE_URL + bannerTwo.image
-                  })`,
+                  backgroundImage: `url(${PublicBaseUrl + bannerTwo.image})`,
                   backgroundSize: `cover`,
                   backgroundRepeat: `no-repeat`,
                 }}

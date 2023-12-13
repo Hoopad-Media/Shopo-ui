@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import apiRequest from "../../../../../utils/apiRequest";
-import auth from "../../../../../utils/auth";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
 import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import apiRequest, { PublicBaseUrl } from "../../../../../utils/apiRequest";
+import auth from "../../../../../utils/auth";
 import ServeLangItem from "../../../Helpers/ServeLangItem";
 
 export default function PasswordTab() {
@@ -338,7 +338,7 @@ export default function PasswordTab() {
               <Image
                 layout="fill"
                 objectFit="scale-down"
-                src={process.env.NEXT_PUBLIC_BASE_URL + sideImg}
+                src={PublicBaseUrl + sideImg}
                 alt="404"
               />
             </div>

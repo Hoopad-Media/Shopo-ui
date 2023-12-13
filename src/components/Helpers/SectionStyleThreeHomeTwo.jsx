@@ -1,3 +1,4 @@
+import { PublicBaseUrl } from "../../../utils/apiRequest";
 import ProductCardStyleOneTwo from "./Cards/ProductCardStyleOneTwo";
 import DataIteration from "./DataIteration";
 import ViewMoreTitle from "./ViewMoreTitle";
@@ -15,7 +16,7 @@ export default function SectionStyleThreeHomeTwo({
       category_id: item.category_id,
       title: item.name,
       slug: item.slug,
-      image: process.env.NEXT_PUBLIC_BASE_URL + item.thumb_image,
+      image: PublicBaseUrl + item.thumb_image,
       price: item.price,
       offer_price: item.offer_price,
       campaingn_product: null,

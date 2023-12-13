@@ -2,13 +2,14 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import isMultivendor from "../../../Middleware/isMultivendor";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
 import auth from "../../../utils/auth";
 import InputCom from "../Helpers/InputCom";
 import PageTitle from "../Helpers/PageTitle";
-import {useSelector} from "react-redux";
 import ServeLangItem from "../Helpers/ServeLangItem";
 function BecomeSaller() {
   const router = useRouter();
@@ -30,7 +31,7 @@ function BecomeSaller() {
     if (!defaultCover || !defaultLogo) {
       if (websiteSetup) {
         setDefaultCover(
-            websiteSetup.payload?.image_content.become_seller_banner
+          websiteSetup.payload?.image_content.become_seller_banner
         );
         setLogo(websiteSetup.payload?.image_content.become_seller_avatar);
       }
@@ -104,7 +105,7 @@ function BecomeSaller() {
       };
       await axios
         .post(
-          `${process.env.NEXT_PUBLIC_BASE_URL}api/user/seller-request?token=${
+          `${PublicBaseUrl}api/user/seller-request?token=${
             auth().access_token
           }`,
           formData,
@@ -123,10 +124,8 @@ function BecomeSaller() {
         })
         .catch((err) => {
           setErrors(err.response && err.response.data.errors);
-          if(err.response && err.response.data.notification){
-            toast.error(
-                err.response.data.notification
-            );
+          if (err.response && err.response.data.notification) {
+            toast.error(err.response.data.notification);
           }
         });
     } else {
@@ -152,9 +151,13 @@ function BecomeSaller() {
               <div className="xl:w-[824px]">
                 <div className="title w-full mb-4">
                   <h1 className="text-[22px] font-semibold text-qblack mb-1">
-                    {ServeLangItem()?.Seller_Information}</h1>
+                    {ServeLangItem()?.Seller_Information}
+                  </h1>
                   <p className="text-[15px] text-qgraytwo">
-                    {ServeLangItem()?.Fill_the_form_below_or_write_us_We_will_help_you_as_soon_as_possible}
+                    {
+                      ServeLangItem()
+                        ?.Fill_the_form_below_or_write_us_We_will_help_you_as_soon_as_possible
+                    }
                   </p>
                 </div>
                 <div className="input-area">
@@ -178,7 +181,7 @@ function BecomeSaller() {
                   <div className="mb-5">
                     <InputCom
                       placeholder={ServeLangItem()?.Email}
-                      label={ServeLangItem()?.Email_Address+"*"}
+                      label={ServeLangItem()?.Email_Address + "*"}
                       name="email"
                       type="email"
                       inputClasses="h-[50px]"
@@ -197,7 +200,7 @@ function BecomeSaller() {
                   <div className="mb-5">
                     <InputCom
                       placeholder="0213 *********"
-                      label={ServeLangItem()?.phone+"*"}
+                      label={ServeLangItem()?.phone + "*"}
                       name="phone"
                       type="text"
                       inputClasses="h-[50px]"
@@ -256,14 +259,17 @@ function BecomeSaller() {
                     {ServeLangItem()?.Shop_Information}
                   </h1>
                   <p className="text-[15px] text-qgraytwo">
-                    {ServeLangItem()?.Fill_the_form_below_or_write_us_We_will_help_you_as_soon_as_possible}
+                    {
+                      ServeLangItem()
+                        ?.Fill_the_form_below_or_write_us_We_will_help_you_as_soon_as_possible
+                    }
                   </p>
                 </div>
                 <div className="input-area">
                   <div className="mb-5">
                     <InputCom
                       placeholder={ServeLangItem()?.Name}
-                      label={ServeLangItem()?.Shop_Name+"*"}
+                      label={ServeLangItem()?.Shop_Name + "*"}
                       name="shopname"
                       type="text"
                       inputClasses="h-[50px]"
@@ -338,7 +344,10 @@ function BecomeSaller() {
                     </button>
                     <Link href="/seller-terms-condition">
                       <span className="text-base text-black cursor-pointer">
-                        {ServeLangItem()?.I_agree_all_terms_and_condition_in_ecoShop}
+                        {
+                          ServeLangItem()
+                            ?.I_agree_all_terms_and_condition_in_ecoShop
+                        }
                       </span>
                     </Link>
                   </div>
@@ -450,24 +459,27 @@ function BecomeSaller() {
                   </h1>
                   <p className="text-sm text-qgraytwo mb-5">
                     {ServeLangItem()?.Profile_of_at_least_Size}
-                    <span className="ml-1 text-qblack">300x300</span>. {ServeLangItem()?.Gifs_work_too}.
-                    <span className="ml-1 text-qblack">{ServeLangItem()?.Max_5mb}</span>.
+                    <span className="ml-1 text-qblack">300x300</span>.{" "}
+                    {ServeLangItem()?.Gifs_work_too}.
+                    <span className="ml-1 text-qblack">
+                      {ServeLangItem()?.Max_5mb}
+                    </span>
+                    .
                   </p>
                   <div className="flex xl:justify-center justify-start">
                     <div className="relative">
                       <div className="sm:w-[198px] sm:h-[198px] w-[199px] h-[199px] rounded-full overflow-hidden relative">
                         {defaultLogo && (
-                            <Image
-                                objectFit="cover"
-                                layout="fill"
-                                src={
-                                  logoImg
-                                      ? logoImg
-                                      : defaultLogo &&
-                                      process.env.NEXT_PUBLIC_BASE_URL + defaultLogo
-                                }
-                                alt=""
-                            />
+                          <Image
+                            objectFit="cover"
+                            layout="fill"
+                            src={
+                              logoImg
+                                ? logoImg
+                                : defaultLogo && PublicBaseUrl + defaultLogo
+                            }
+                            alt=""
+                          />
                         )}
                       </div>
                       <input
@@ -503,7 +515,6 @@ function BecomeSaller() {
                 <div className="update-cover w-full">
                   <h1 className="text-xl tracking-wide font-bold text-qblack mb-2">
                     {ServeLangItem()?.Update_Cover}
-
                   </h1>
                   <p className="text-sm text-qgraytwo mb-5">
                     {ServeLangItem()?.Cover_of_at_least_Size}
@@ -513,17 +524,15 @@ function BecomeSaller() {
                     <div className="w-full relative">
                       <div className="w-full h-[120px] rounded-lg overflow-hidden object-cover">
                         {defaultCover && (
-                            <Image
-                                layout="fill"
-                                src={
-                                  coverImg
-                                      ? coverImg
-                                      : defaultCover &&
-                                      process.env.NEXT_PUBLIC_BASE_URL +
-                                      defaultCover
-                                }
-                                alt=""
-                            />
+                          <Image
+                            layout="fill"
+                            src={
+                              coverImg
+                                ? coverImg
+                                : defaultCover && PublicBaseUrl + defaultCover
+                            }
+                            alt=""
+                          />
                         )}
                       </div>
 

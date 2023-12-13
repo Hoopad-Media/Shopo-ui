@@ -1,11 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { PublicBaseUrl } from "../../../../../utils/apiRequest";
+import ServeLangItem from "../../../Helpers/ServeLangItem";
 import Arrow from "../../../Helpers/icons/Arrow";
 import FontAwesomeCom from "../../../Helpers/icons/FontAwesomeCom";
 import Multivendor from "../../../Shared/Multivendor";
-import ServeLangItem from "../../../Helpers/ServeLangItem";
 export default function Navbar({ className }) {
   const { websiteSetup } = useSelector((state) => state.websiteSetup);
   const categoryList = websiteSetup && websiteSetup.payload.productCategories;
@@ -47,9 +47,9 @@ export default function Navbar({ className }) {
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <rect width="14" height="1"  />
-                        <rect y="8" width="14" height="1"  />
-                        <rect y="4" width="10" height="1"  />
+                        <rect width="14" height="1" />
+                        <rect y="8" width="14" height="1" />
+                        <rect y="4" width="10" height="1" />
                       </svg>
                     </span>
                     <span className="text-sm font-600 text-qblacktext">
@@ -120,7 +120,6 @@ export default function Navbar({ className }) {
                                         width="5.78538"
                                         height="1.28564"
                                         transform="rotate(45 1.49805 0.818359)"
-
                                       />
                                       <rect
                                         x="5.58984"
@@ -128,7 +127,6 @@ export default function Navbar({ className }) {
                                         width="5.78538"
                                         height="1.28564"
                                         transform="rotate(135 5.58984 4.90918)"
-
                                       />
                                     </svg>
                                   </span>
@@ -181,7 +179,6 @@ export default function Navbar({ className }) {
                                                   width="5.78538"
                                                   height="1.28564"
                                                   transform="rotate(45 1.49805 0.818359)"
-
                                                 />
                                                 <rect
                                                   x="5.58984"
@@ -189,7 +186,6 @@ export default function Navbar({ className }) {
                                                   width="5.78538"
                                                   height="1.28564"
                                                   transform="rotate(135 5.58984 4.90918)"
-
                                                 />
                                               </svg>
                                             </span>
@@ -343,8 +339,7 @@ export default function Navbar({ className }) {
                           <div
                             style={{
                               backgroundImage: `url(${
-                                process.env.NEXT_PUBLIC_BASE_URL +
-                                megaMenuBanner.image
+                                PublicBaseUrl + megaMenuBanner.image
                               })`,
                               backgroundSize: "contain",
                               backgroundRepeat: "no-repeat",
@@ -395,7 +390,6 @@ export default function Navbar({ className }) {
                                               width="6.94219"
                                               height="1.54271"
                                               transform="rotate(45 2.08984 0.636719)"
-
                                             />
                                             <rect
                                               x="7"
@@ -403,7 +397,6 @@ export default function Navbar({ className }) {
                                               width="6.94219"
                                               height="1.54271"
                                               transform="rotate(135 7 5.54492)"
-
                                             />
                                           </svg>
                                         </span>

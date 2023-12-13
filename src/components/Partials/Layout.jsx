@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import apiRequest, { PublicBaseUrl } from "../../../utils/apiRequest";
 import DiscountBanner from "../DiscountBanner";
 import Drawer from "../Mobile/Drawer";
 import Footer from "./Footers/Footer";
 import Header from "./Headers/Header";
-import apiRequest from "../../../utils/apiRequest";
 export default function Layout({ children, childrenClasses }) {
   const { websiteSetup } = useSelector((state) => state.websiteSetup);
   const [settings, setSettings] = useState(null);
@@ -14,7 +14,7 @@ export default function Layout({ children, childrenClasses }) {
   useEffect(() => {
     if (!subscribeData) {
       axios
-        .get(`${process.env.NEXT_PUBLIC_BASE_URL}api/`)
+        .get(`${PublicBaseUrl}api/`)
         .then((res) => {
           if (res.data) {
             setSubScribeDAta(res.data.subscriptionBanner);

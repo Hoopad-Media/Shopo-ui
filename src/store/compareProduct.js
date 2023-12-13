@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PublicBaseUrl } from "../../utils/apiRequest";
 import auth from "../../utils/auth";
 const initialState = {
   compareProducts: null,
@@ -9,9 +10,7 @@ export const fetchCompareProducts = createAsyncThunk(
   async () => {
     if (auth()) {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}api/user/compare-product?token=${
-          auth().access_token
-        }`,
+        `${PublicBaseUrl}api/user/compare-product?token=${auth().access_token}`,
         {
           method: "GET",
           headers: {

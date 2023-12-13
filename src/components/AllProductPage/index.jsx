@@ -4,15 +4,16 @@ import "react-input-range/lib/css/index.css";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
+import ProductCardRowStyleTwo from "../Helpers/Cards/ProductCardRowStyleTwo";
 import ProductCardStyleOne from "../Helpers/Cards/ProductCardStyleOne";
 import DataIteration from "../Helpers/DataIteration";
-import Star from "../Helpers/icons/Star";
-import Layout from "../Partials/Layout";
-import ProductsFilter from "./ProductsFilter";
-import OneColumnAdsTwo from "../Home/ProductAds/OneColumnAdsTwo";
-import ProductCardRowStyleTwo from "../Helpers/Cards/ProductCardRowStyleTwo";
 import LoaderStyleOne from "../Helpers/Loaders/LoaderStyleOne";
 import ServeLangItem from "../Helpers/ServeLangItem";
+import Star from "../Helpers/icons/Star";
+import OneColumnAdsTwo from "../Home/ProductAds/OneColumnAdsTwo";
+import Layout from "../Partials/Layout";
+import ProductsFilter from "./ProductsFilter";
 
 export default function AllProductPage({ response, sellerInfo }) {
   const [resProducts, setProducts] = useState(null);
@@ -30,7 +31,7 @@ export default function AllProductPage({ response, sellerInfo }) {
         id: item.id,
         title: item.name,
         slug: item.slug,
-        image: process.env.NEXT_PUBLIC_BASE_URL + item.thumb_image,
+        image: PublicBaseUrl + item.thumb_image,
         price: item.price,
         offer_price: item.offer_price,
         campaingn_product: null,
@@ -244,11 +245,11 @@ export default function AllProductPage({ response, sellerInfo }) {
             : "";
         axios
           .get(
-            `${process.env.NEXT_PUBLIC_BASE_URL}api/search-product?${
-              brandString && brandString
-            }${categoryString && categoryString}${
-              variantString && variantString
-            }min_price=${volume.min}&max_price=${volume.max}${
+            `${PublicBaseUrl}api/search-product?${brandString && brandString}${
+              categoryString && categoryString
+            }${variantString && variantString}min_price=${
+              volume.min
+            }&max_price=${volume.max}${
               sellerInfo ? `&shop_name=${sellerInfo.seller.slug}` : ""
             }`
           )
@@ -462,10 +463,7 @@ export default function AllProductPage({ response, sellerInfo }) {
                       <Image
                         layout="fill"
                         objectFit="scale-down"
-                        src={`${
-                          process.env.NEXT_PUBLIC_BASE_URL +
-                          sellerInfo.seller.logo
-                        }`}
+                        src={`${PublicBaseUrl + sellerInfo.seller.logo}`}
                         alt="logo"
                         className="object-contain"
                       />
@@ -516,7 +514,7 @@ export default function AllProductPage({ response, sellerInfo }) {
                   <div
                     style={{
                       backgroundImage: `url(${
-                        process.env.NEXT_PUBLIC_BASE_URL +
+                        PublicBaseUrl +
                         response.data.shopPageSidebarBanner.image
                       })`,
                       backgroundSize: `cover`,

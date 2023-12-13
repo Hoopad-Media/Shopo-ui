@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { PublicBaseUrl } from "../../../../../utils/apiRequest";
 import Facebook from "../../../Helpers/icons/Facebook";
 import Instagram from "../../../Helpers/icons/Instagram";
 import Youtube from "../../../Helpers/icons/Youtube";
@@ -52,9 +53,7 @@ export default function Footer({ settings }) {
                     <Image
                       width="152"
                       height="36"
-                      src={`${
-                        process.env.NEXT_PUBLIC_BASE_URL + settings.logo
-                      }`}
+                      src={`${PublicBaseUrl + settings.logo}`}
                       alt="logo"
                     />
                   )}

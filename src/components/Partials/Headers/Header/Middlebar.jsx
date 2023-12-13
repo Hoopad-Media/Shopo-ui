@@ -3,16 +3,16 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import apiRequest from "../../../../../utils/apiRequest";
+import apiRequest, { PublicBaseUrl } from "../../../../../utils/apiRequest";
 import { fetchWishlist } from "../../../../store/wishlistData";
 import Cart from "../../../Cart";
+import LoginContext from "../../../Contexts/LoginContext";
+import SearchBox from "../../../Helpers/SearchBox";
+import ServeLangItem from "../../../Helpers/ServeLangItem";
 import Compair from "../../../Helpers/icons/Compair";
 import ThinBag from "../../../Helpers/icons/ThinBag";
 import ThinLove from "../../../Helpers/icons/ThinLove";
 import ThinPeople from "../../../Helpers/icons/ThinPeople";
-import SearchBox from "../../../Helpers/SearchBox";
-import ServeLangItem from "../../../Helpers/ServeLangItem";
-import LoginContext from "../../../Contexts/LoginContext";
 export default function Middlebar({ className, settings }) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -57,9 +57,7 @@ export default function Middlebar({ className, settings }) {
                       width="153"
                       height="44"
                       objectFit="scale-down"
-                      src={`${
-                        process.env.NEXT_PUBLIC_BASE_URL + settings.logo
-                      }`}
+                      src={`${PublicBaseUrl + settings.logo}`}
                       alt="logo"
                     />
                   )}

@@ -5,18 +5,18 @@ import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { toast } from "react-toastify";
-import apiRequest from "../../../utils/apiRequest";
+import apiRequest, { PublicBaseUrl } from "../../../utils/apiRequest";
 import auth from "../../../utils/auth";
 import settings from "../../../utils/settings";
 import { fetchCart } from "../../store/Cart";
 import { fetchWishlist } from "../../store/wishlistData";
-import Star from "../Helpers/icons/Star";
-import ThinLove from "../Helpers/icons/ThinLove";
-import Selectbox from "../Helpers/Selectbox";
-import CheckProductIsExistsInFlashSale from "../Shared/CheckProductIsExistsInFlashSale";
-import ServeLangItem from "../Helpers/ServeLangItem";
 import LoginContext from "../Contexts/LoginContext";
 import messageContext from "../Contexts/MessageContext";
+import Selectbox from "../Helpers/Selectbox";
+import ServeLangItem from "../Helpers/ServeLangItem";
+import Star from "../Helpers/icons/Star";
+import ThinLove from "../Helpers/icons/ThinLove";
+import CheckProductIsExistsInFlashSale from "../Shared/CheckProductIsExistsInFlashSale";
 
 const Redirect = () => {
   return (
@@ -37,7 +37,7 @@ export default function ProductView({
   reportHandler,
   images = [],
   product,
-    seller
+  seller,
 }) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ export default function ProductView({
   const [src, setSrc] = useState(product.thumb_image);
   const tags = product && JSON.parse(product.tags);
   const loginPopupBoard = useContext(LoginContext);
-  const messageHandler=useContext(messageContext);
+  const messageHandler = useContext(messageContext);
   const changeImgHandler = (current) => {
     setSrc(current);
   };
@@ -159,8 +159,8 @@ export default function ProductView({
       token: auth() && auth().access_token,
       quantity: quantity,
       variants:
-          getFirstVarients &&
-          getFirstVarients.map((v) => parseInt(v.product_variant_id)),
+        getFirstVarients &&
+        getFirstVarients.map((v) => parseInt(v.product_variant_id)),
       variantItems: getFirstVarients && getFirstVarients.map((v) => v.id),
     };
     if (auth()) {
@@ -209,7 +209,10 @@ export default function ProductView({
         dispatch(fetchCart());
       }
     } else {
-      localStorage.setItem("data-hold", JSON.stringify({type:"add-to-cart",...data}));
+      localStorage.setItem(
+        "data-hold",
+        JSON.stringify({ type: "add-to-cart", ...data })
+      );
       loginPopupBoard.handlerPopup(true);
     }
   };
@@ -278,10 +281,10 @@ export default function ProductView({
       }
     }
   }, [websiteSetup]);
-  const popupMessageHandler = () =>{
-    if(auth()){
-      messageHandler.toggleHandler(seller)
-    }else{
+  const popupMessageHandler = () => {
+    if (auth()) {
+      messageHandler.toggleHandler(seller);
+    } else {
       loginPopupBoard.handlerPopup(true);
     }
   };
@@ -302,7 +305,7 @@ export default function ProductView({
               <Image
                 layout="fill"
                 objectFit="scale-down"
-                src={`${process.env.NEXT_PUBLIC_BASE_URL + src}`}
+                src={`${PublicBaseUrl + src}`}
                 alt=""
                 className="object-contain  transform scale-110"
               />
@@ -327,9 +330,7 @@ export default function ProductView({
                 <Image
                   layout="fill"
                   objectFit="scale-down"
-                  src={`${
-                    process.env.NEXT_PUBLIC_BASE_URL + product.thumb_image
-                  }`}
+                  src={`${PublicBaseUrl + product.thumb_image}`}
                   alt=""
                   className={`w-full h-full object-contain transform scale-110 ${
                     src !== product.thumb_image ? "opacity-50" : ""
@@ -347,7 +348,7 @@ export default function ProductView({
                     <Image
                       layout="fill"
                       objectFit="scale-down"
-                      src={`${process.env.NEXT_PUBLIC_BASE_URL + img.image}`}
+                      src={`${PublicBaseUrl + img.image}`}
                       alt=""
                       className={`w-full h-full object-contain ${
                         src !== img.image ? "opacity-50" : ""
@@ -756,21 +757,50 @@ export default function ProductView({
                 {/*  </span>*/}
                 {/*</Link>*/}
               </div>
-
             </div>
             {seller && (
-                <div data-aos="fade-up" className="message-btn">
-                  <button onClick={()=>popupMessageHandler()} className="flex px-5 py-2 primary-bg text-qblack items-center space-x-2.5" type="button">
-                <span>
-                  <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.30898 18.0944C0.962386 18.0925 0.630508 17.954 0.385424 17.7089C0.14034 17.4638 0.00183875 17.132 0 16.7854V6.01951C0.00184787 5.30162 0.287849 4.61366 0.795479 4.10603C1.30311 3.5984 1.99107 3.31239 2.70897 3.31055H15.4838C16.2029 3.31054 16.8927 3.59573 17.4018 4.10356C17.9109 4.61139 18.1979 5.30041 18.1998 6.01951V13.1944C18.1998 13.9135 17.9146 14.6033 17.4068 15.1124C16.8989 15.6216 16.2099 15.9085 15.4908 15.9104H4.83694C4.71593 15.9114 4.59833 15.9506 4.50094 16.0224L2.09997 17.8354C1.87104 18.0045 1.59364 18.0954 1.30898 18.0944ZM2.70897 4.71053C2.36237 4.71237 2.03049 4.85087 1.78541 5.09595C1.54032 5.34104 1.40182 5.67291 1.39998 6.01951V16.6104L3.66095 14.9024C4.00115 14.6497 4.41318 14.5124 4.83694 14.5104H15.4838C15.8328 14.5104 16.1675 14.3718 16.4143 14.125C16.6611 13.8782 16.7998 13.5434 16.7998 13.1944V6.01951C16.7979 5.67291 16.6594 5.34104 16.4144 5.09595C16.1693 4.85087 15.8374 4.71237 15.4908 4.71053H2.70897Z" fill="black"></path><path d="M11.8601 10.3746C12.2467 10.3746 12.5601 10.0612 12.5601 9.6746C12.5601 9.28801 12.2467 8.97461 11.8601 8.97461C11.4736 8.97461 11.1602 9.28801 11.1602 9.6746C11.1602 10.0612 11.4736 10.3746 11.8601 10.3746Z" fill="black"></path><path d="M9.1414 10.3746C9.52799 10.3746 9.84139 10.0612 9.84139 9.6746C9.84139 9.28801 9.52799 8.97461 9.1414 8.97461C8.7548 8.97461 8.44141 9.28801 8.44141 9.6746C8.44141 10.0612 8.7548 10.3746 9.1414 10.3746Z" fill="black"></path><path d="M6.34062 10.3746C6.72721 10.3746 7.04061 10.0612 7.04061 9.6746C7.04061 9.28801 6.72721 8.97461 6.34062 8.97461C5.95402 8.97461 5.64062 9.28801 5.64062 9.6746C5.64062 10.0612 5.95402 10.3746 6.34062 10.3746Z" fill="black"></path><path d="M20.2998 11.0116C20.1141 11.0116 19.9361 10.9378 19.8048 10.8066C19.6735 10.6753 19.5998 10.4972 19.5998 10.3116V3.22068C19.598 2.87409 19.4595 2.54221 19.2144 2.29712C18.9693 2.05204 18.6374 1.91354 18.2908 1.9117H4.19999C4.01434 1.9117 3.8363 1.83795 3.70502 1.70668C3.57375 1.5754 3.5 1.39736 3.5 1.21171C3.5 1.02606 3.57375 0.848015 3.70502 0.716741C3.8363 0.585468 4.01434 0.511719 4.19999 0.511719H18.2908C19.0087 0.513567 19.6967 0.799568 20.2043 1.3072C20.7119 1.81483 20.9979 2.50279 20.9998 3.22068V10.3116C20.9998 10.4972 20.926 10.6753 20.7948 10.8066C20.6635 10.9378 20.4854 11.0116 20.2998 11.0116Z" fill="black"></path></svg>
-                </span>
-                    <span className="text-base font-medium text-qblack capitalize">
-                  Chat with seller
-                </span>
-                  </button>
-                </div>
+              <div data-aos="fade-up" className="message-btn">
+                <button
+                  onClick={() => popupMessageHandler()}
+                  className="flex px-5 py-2 primary-bg text-qblack items-center space-x-2.5"
+                  type="button"
+                >
+                  <span>
+                    <svg
+                      width="21"
+                      height="19"
+                      viewBox="0 0 21 19"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1.30898 18.0944C0.962386 18.0925 0.630508 17.954 0.385424 17.7089C0.14034 17.4638 0.00183875 17.132 0 16.7854V6.01951C0.00184787 5.30162 0.287849 4.61366 0.795479 4.10603C1.30311 3.5984 1.99107 3.31239 2.70897 3.31055H15.4838C16.2029 3.31054 16.8927 3.59573 17.4018 4.10356C17.9109 4.61139 18.1979 5.30041 18.1998 6.01951V13.1944C18.1998 13.9135 17.9146 14.6033 17.4068 15.1124C16.8989 15.6216 16.2099 15.9085 15.4908 15.9104H4.83694C4.71593 15.9114 4.59833 15.9506 4.50094 16.0224L2.09997 17.8354C1.87104 18.0045 1.59364 18.0954 1.30898 18.0944ZM2.70897 4.71053C2.36237 4.71237 2.03049 4.85087 1.78541 5.09595C1.54032 5.34104 1.40182 5.67291 1.39998 6.01951V16.6104L3.66095 14.9024C4.00115 14.6497 4.41318 14.5124 4.83694 14.5104H15.4838C15.8328 14.5104 16.1675 14.3718 16.4143 14.125C16.6611 13.8782 16.7998 13.5434 16.7998 13.1944V6.01951C16.7979 5.67291 16.6594 5.34104 16.4144 5.09595C16.1693 4.85087 15.8374 4.71237 15.4908 4.71053H2.70897Z"
+                        fill="black"
+                      ></path>
+                      <path
+                        d="M11.8601 10.3746C12.2467 10.3746 12.5601 10.0612 12.5601 9.6746C12.5601 9.28801 12.2467 8.97461 11.8601 8.97461C11.4736 8.97461 11.1602 9.28801 11.1602 9.6746C11.1602 10.0612 11.4736 10.3746 11.8601 10.3746Z"
+                        fill="black"
+                      ></path>
+                      <path
+                        d="M9.1414 10.3746C9.52799 10.3746 9.84139 10.0612 9.84139 9.6746C9.84139 9.28801 9.52799 8.97461 9.1414 8.97461C8.7548 8.97461 8.44141 9.28801 8.44141 9.6746C8.44141 10.0612 8.7548 10.3746 9.1414 10.3746Z"
+                        fill="black"
+                      ></path>
+                      <path
+                        d="M6.34062 10.3746C6.72721 10.3746 7.04061 10.0612 7.04061 9.6746C7.04061 9.28801 6.72721 8.97461 6.34062 8.97461C5.95402 8.97461 5.64062 9.28801 5.64062 9.6746C5.64062 10.0612 5.95402 10.3746 6.34062 10.3746Z"
+                        fill="black"
+                      ></path>
+                      <path
+                        d="M20.2998 11.0116C20.1141 11.0116 19.9361 10.9378 19.8048 10.8066C19.6735 10.6753 19.5998 10.4972 19.5998 10.3116V3.22068C19.598 2.87409 19.4595 2.54221 19.2144 2.29712C18.9693 2.05204 18.6374 1.91354 18.2908 1.9117H4.19999C4.01434 1.9117 3.8363 1.83795 3.70502 1.70668C3.57375 1.5754 3.5 1.39736 3.5 1.21171C3.5 1.02606 3.57375 0.848015 3.70502 0.716741C3.8363 0.585468 4.01434 0.511719 4.19999 0.511719H18.2908C19.0087 0.513567 19.6967 0.799568 20.2043 1.3072C20.7119 1.81483 20.9979 2.50279 20.9998 3.22068V10.3116C20.9998 10.4972 20.926 10.6753 20.7948 10.8066C20.6635 10.9378 20.4854 11.0116 20.2998 11.0116Z"
+                        fill="black"
+                      ></path>
+                    </svg>
+                  </span>
+                  <span className="text-base font-medium text-qblack capitalize">
+                    Chat with seller
+                  </span>
+                </button>
+              </div>
             )}
-
           </div>
         </div>
       </div>

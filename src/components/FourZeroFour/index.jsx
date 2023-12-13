@@ -1,18 +1,20 @@
-import BreadcrumbCom from "../BreadcrumbCom";
-import Layout from "../Partials/Layout";
-import ErrorThumb from "./ErrorThumb";
-import Link from "next/link";
-import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { PublicBaseUrl } from "../../../utils/apiRequest";
+import BreadcrumbCom from "../BreadcrumbCom";
 import ServeLangItem from "../Helpers/ServeLangItem";
+import Layout from "../Partials/Layout";
 export default function FourZeroFour() {
   const { websiteSetup } = useSelector((state) => state.websiteSetup);
   const [siteDate, setSiteDate] = useState(null);
   useEffect(() => {
     if (!siteDate) {
       if (websiteSetup) {
-        setSiteDate(websiteSetup && websiteSetup?.payload.image_content.error_page);
+        setSiteDate(
+          websiteSetup && websiteSetup?.payload.image_content.error_page
+        );
       }
     }
   }, [siteDate, websiteSetup]);
@@ -26,14 +28,14 @@ export default function FourZeroFour() {
               <div>
                 <div className="sm:mb-10 mb-0 transform sm:scale-100 scale-50">
                   {siteDate && (
-                      <div className="w-[338px] h-[475px] relative">
-                        <Image
-                            layout="fill"
-                            objectFit="scale-down"
-                            src={process.env.NEXT_PUBLIC_BASE_URL + siteDate}
-                            alt="404"
-                        />
-                      </div>
+                    <div className="w-[338px] h-[475px] relative">
+                      <Image
+                        layout="fill"
+                        objectFit="scale-down"
+                        src={PublicBaseUrl + siteDate}
+                        alt="404"
+                      />
+                    </div>
                   )}
                 </div>
                 <div data-aos="fade-up" className="empty-content w-full">
